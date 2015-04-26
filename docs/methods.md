@@ -352,6 +352,22 @@ next(connection, false);
 - next(err, workers)
 - list what all taskProcessors are working on (or sleeping)
 
+#### api.tasks.failedCount(next)
+- next(err, failedCount)
+- `failedCount` is how many resque jobs are in the failed queue.
+
+#### api.tasks.failed(start, stop, next)
+- next(err, failedJobs)
+- `failedJobs` is an array listing the data of the failed jobs.  You can see an example at https://github.com/taskrabbit/node-resque#failed-job-managment
+
+#### api.tasks.removeFailed(failedJob, next)
+- next(err, removedCount)
+- the input `failedJob` is an expanded node object representing the failed job, retrieved via `api.tasks.failed`
+
+#### api.tasks.retryAndRemoveFailed(failedJob, next)
+- next(err, failedJob)
+- the input `failedJob` is an expanded node object representing the failed job, retrieved via `api.tasks.failed`
+
 ### api.tasks.details(next)
 - next(err, details)
 - details is a hash of all the queues in the system and how long they are

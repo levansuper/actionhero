@@ -238,6 +238,22 @@ actionhero provides some methods to help inspect the state of your queue
 - details is a hash of all the queues in the system and how long they are
 - this method also returns metadata about the taskProcessors and what they are currently working on
 
+#### api.tasks.failedCount(next)
+- next(err, failedCount)
+- `failedCount` is how many resque jobs are in the failed queue.
+
+#### api.tasks.failed(start, stop, next)
+- next(err, failedJobs)
+- `failedJobs` is an array listing the data of the failed jobs.  You can see an example at https://github.com/taskrabbit/node-resque#failed-job-managment
+
+#### api.tasks.removeFailed(failedJob, next)
+- next(err, removedCount)
+- the input `failedJob` is an expanded node object representing the failed job, retrieved via `api.tasks.failed`
+
+#### api.tasks.retryAndRemoveFailed(failedJob, next)
+- next(err, failedJob)
+- the input `failedJob` is an expanded node object representing the failed job, retrieved via `api.tasks.failed`
+
 ## Notes
 
 Note that the `frequency`, `enqueueIn` and `enqueueAt` times are when a task is **allowed** to run, not when it **will** run.  TaskProcessors will work tasks in a first-in-first-out manner.  TaskProcessors also `sleep` when there is no work to do, and will take some time (default 5 seconds) to wake up and check for more work to do.
